@@ -1,0 +1,35 @@
+version: '3.12'
+
+services:
+
+  redis:
+    image: redis:7.2-alpine
+
+  celery:
+    build:
+      context: .
+    command: "celery --app=core worker -l INFO"
+    volumes:
+      - ./core:/usr/src/app/
+    env_file:
+      - .env
+    depends_on:
+      - redis
+
+  django:
+    build:
+      context: .
+    command: "python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - ./core:/usr/src/app/
+    ports:
+      - '8000:8000'
+    env_file:
+      - .env
+    depends_on:
+      - redis
+
+
+volumes:
+  pgdbdata: null
+    

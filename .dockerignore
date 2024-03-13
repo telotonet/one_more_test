@@ -1,0 +1,11 @@
+*.mp4
+*.mp3
+.cache
+.git 
+.sqlite3
+**/db.sqlite3
+*/db.sqlite3
+/core/db.sqlite3
+logs/
+migrations/
+__pycache__/
